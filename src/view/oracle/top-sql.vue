@@ -70,6 +70,9 @@ export default {
   created () {
     this.get_oracle_top_sql(`tags=${this.$route.params.tags}&type=cpu `)
     this.Tags = this.$route.params.tags
+    this.timer = setInterval(() => {
+      this.get_oracle_top_sql(`tags=${this.$route.params.tags}&type=${this.Type} `)
+    }, 1000 * 2000)
   },
   methods: {
     get_oracle_top_sql (parameter) {
@@ -88,12 +91,12 @@ export default {
           {
             title: this.titleData['COL2'],
             key: 'COL2',
-            width: 130
+            width: 160
           },
           {
             title: this.titleData['COL3'],
             key: 'COL3',
-            width: 130
+            width: 160
           },
           {
             title: this.titleData['COL4'],
@@ -138,7 +141,7 @@ export default {
           {
             title: this.titleData['COL12'],
             key: 'COL12',
-            width: 150
+            width: 200
           }
         ]
         console.log(this.data)

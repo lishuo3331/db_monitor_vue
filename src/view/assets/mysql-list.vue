@@ -30,7 +30,7 @@
               show-total />
       </Row>
       <Row>
-        <Drawer title="MySQL数据库配置"
+        <Drawer title="Linux-2配置"
                 v-model="create"
                 width="720"
                 :mask-closable="this.close"
@@ -74,11 +74,11 @@
               </FormItem>
               </Col>
               <Col span="6">
-              <FormItem label="linux主机"
+              <FormItem label="Linux-3"
                         label-position="top"
                         prop="linux_tags">
                 <Select v-model="formData.linux_tags"
-                        placeholder="选择linux主机">
+                        placeholder="选择Linux-3">
                  <Option v-for="item in linuxdata" :value="item.tags" :key="item.tags" :label="item.tags"></Option>
                 </Select>
               </FormItem>

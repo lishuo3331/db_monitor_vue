@@ -5,48 +5,48 @@
         <Card shadow>
           <p slot="title" style="font-size: larger">
               <Icon type="ios-pie"></Icon>
-              Linux服务器
+              Linux
           </p>
           <p style="font-size: small; color: black" >
               总数量：{{this.linux_count}}
           </p>
-          <chart-pie3 style="height: 160px;" :value="this.LinuxData" text="Linux"></chart-pie3>
+          <chart-pie3 style="height: 160px;" :value="this.LinuxData" text="Linux-3"></chart-pie3>
         </Card>
       </i-col>
             <i-col :md="24" :lg="6" style="margin-bottom: 20px;">
         <Card shadow>
           <p slot="title" style="font-size: larger">
               <Icon type="ios-pie"></Icon>
-              Oracle数据库
+              Linux-1
           </p>
           <p style="font-size: small; color: black" >
               总数量：{{this.oracle_count}}
           </p>
-          <chart-pie3 style="height: 160px;" :value="OracleData" text="Oracle"></chart-pie3>
+          <chart-pie3 style="height: 160px;" :value="OracleData" text="Linux-1"></chart-pie3>
         </Card>
       </i-col>
             <i-col :md="24" :lg="6" style="margin-bottom: 20px;">
         <Card shadow>
           <p slot="title" style="font-size: larger">
               <Icon type="ios-pie"></Icon>
-              MySQL数据库
+              Linux-2
           </p>
           <p style="font-size: small; color: black" >
               总数量：{{this.mysql_count}}
           </p>
-          <chart-pie3 style="height: 160px;" :value="MysqlData" text="MySQL"></chart-pie3>
+          <chart-pie3 style="height: 160px;" :value="MysqlData" text="Linux-2"></chart-pie3>
         </Card>
       </i-col>
             <i-col :md="24" :lg="6" style="margin-bottom: 20px;">
         <Card shadow>
           <p slot="title" style="font-size: larger">
               <Icon type="ios-pie"></Icon>
-              Redis
+              Win-1
           </p>
           <p style="font-size: small; color: black" >
               总数量：{{this.redis_count}}
           </p>
-          <chart-pie3 style="height: 160px;" :value="RedisData" text="Redis"></chart-pie3>
+          <chart-pie3 style="height: 160px;" :value="RedisData" text="Win-1"></chart-pie3>
         </Card>
       </i-col>
       <i-col span="14">

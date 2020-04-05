@@ -30,7 +30,7 @@
               show-total />
       </Row>
       <Row>
-        <Drawer title="Oracle数据库配置"
+        <Drawer title="Linux-1配置"
                 v-model="create"
                 width="720"
                 :mask-closable="this.close"
@@ -75,7 +75,7 @@
               </FormItem>
               </Col>
               <Col span="8">
-              <FormItem label="linux主机"
+              <FormItem label="Linux-3"
                         label-position="top"
                         prop="linux_tags">
                 <Select v-model="formData.linux_tags"
@@ -542,7 +542,6 @@ export default {
       this.$refs[name].validate((valid) => {
         console.log()
         if (valid) {
-          debugger
           if (!this.updateId) {
             createOracle(this.formData).then(res => {
               console.log(res)

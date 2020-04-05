@@ -30,7 +30,7 @@
               show-total />
       </Row>
       <Row>
-        <Drawer title="Linux主机配置"
+        <Drawer title="Linux-3配置"
                 v-model="create"
                 width="720"
                 :mask-closable="this.close"
@@ -38,7 +38,7 @@
           <Form ref="formData"
                 :model="formData"
                 :rules="ruleValidate">
-            <Alert show-icon>Linux主机配置</Alert>
+            <Alert show-icon>Linux-3配置</Alert>
             <Row :gutter="32">
               <Col span="6">
               <FormItem label="标签"
@@ -309,10 +309,10 @@ export default {
         },
         {
           title: '状态',
-          key: 'status',
+          key: 'system_level',
           width: 90,
           render: (h, params) => {
-            const statusMap = {
+            const levelMap = {
               0: { color: 'green', desc: '在线' },
               1: { color: 'gray', desc: '备用' },
               2: { color: 'gray', desc: '下线' },
@@ -320,8 +320,8 @@ export default {
               4: { color: 'gray', desc: '维修' },
               5: { color: 'gray', desc: '重装' }
             }
-            const status = params.row.status
-            return h(Tag, { props: { color: statusMap[status]['color'] } }, statusMap[status]['desc'])
+            const system_level = params.row.system_level
+            return h(Tag, { props: { color: levelMap[system_level]['color'] } }, levelMap[system_level]['desc'])
           }
         },
         {

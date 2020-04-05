@@ -31,7 +31,7 @@
       </Row>
       <Row>
 
-        <Drawer title="Redis配置"
+        <Drawer title="Win-1配置"
                 v-model="create"
                 width="720"
                 :mask-closable="this.close"
@@ -39,7 +39,7 @@
           <Form ref="formData"
                 :model="formData"
                 :rules="ruleValidate">
-            <Alert show-icon>redis连接配置</Alert>
+            <Alert show-icon>Win-1连接配置</Alert>
             <Row :gutter="32">
               <Col span="6">
               <FormItem label="标签"
@@ -76,7 +76,7 @@
             </Row>
             <Row :gutter="32">
               <Col span="6">
-              <FormItem label="linux主机"
+              <FormItem label="Linux-3"
                         label-position="top"
                         prop="linux_tags">
                 <Select v-model="formData.linux_tags"
@@ -96,7 +96,7 @@
               </FormItem>
               </Col>
               <Col span="6">
-              <FormItem label="Redis架构"
+              <FormItem label="Win-1架构"
                         label-position="top"
                         prop="architecture">
                 <Input v-model="formData.architecture"
@@ -115,7 +115,7 @@
               </FormItem>
               </Col>
             </Row>
-            <Alert show-icon>Redis描述</Alert>
+            <Alert show-icon>Win-1描述</Alert>
             <Row :gutter="32">
               <Col span="8">
               <FormItem label="配置文件"
@@ -217,7 +217,7 @@ export default {
           width: 80
         },
         {
-          title: 'Redis版本',
+          title: 'Win-1版本',
           key: 'redis_version',
           width: 100
         },

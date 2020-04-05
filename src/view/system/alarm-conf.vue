@@ -46,10 +46,10 @@
                         prop="type">
                 <Select v-model="formData.type"
                         placeholder="">
-                  <Option value='1'>Oracle数据库</Option>
-                  <Option value='2'>MySQL数据库</Option>
-                  <Option value='3'>Redis</Option>
-                  <Option value='4'>Linux主机</Option>
+                  <Option value='1'>Linux-1</Option>
+                  <Option value='2'>Linux-2</Option>
+                  <Option value='3'>Win-1</Option>
+                  <Option value='4'>Linux-3</Option>
                 </Select>
               </FormItem>
               </Col>
@@ -165,10 +165,10 @@ export default {
           width: 120,
           render: (h, params) => {
             const typeMap = {
-              1: { desc: 'Oracle数据库' },
-              2: { desc: 'MySQL数据库' },
-              3: { desc: 'Redis' },
-              4: { desc: 'Linux主机' }
+              1: { desc: 'Linux-1' },
+              2: { desc: 'Linux-2' },
+              3: { desc: 'Win-1' },
+              4: { desc: 'Linux-3' }
             }
             const type = params.row.type
             return h('div', typeMap[type]['desc'])
