@@ -18,10 +18,10 @@ baseUrl:
     pro: 线上
 
 3. 安装依赖包
-yarn install
+sudo yarn install
 
 4. 开发环境运行
-yarn run dev
+sudo yarn run dev
 ```
 
 ## 编译
