@@ -17,7 +17,7 @@
         <Card shadow>
           <p slot="title" style="font-size: larger">
               <Icon type="ios-pie"></Icon>
-              Linux-1
+
           </p>
           <p style="font-size: small; color: black" >
               总数量：{{this.oracle_count}}
@@ -29,7 +29,7 @@
         <Card shadow>
           <p slot="title" style="font-size: larger">
               <Icon type="ios-pie"></Icon>
-              Linux-2
+              Windows
           </p>
           <p style="font-size: small; color: black" >
               总数量：{{this.mysql_count}}
@@ -41,7 +41,7 @@
         <Card shadow>
           <p slot="title" style="font-size: larger">
               <Icon type="ios-pie"></Icon>
-              Win-1
+
           </p>
           <p style="font-size: small; color: black" >
               总数量：{{this.redis_count}}
