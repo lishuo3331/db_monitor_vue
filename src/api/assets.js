@@ -66,7 +66,12 @@ export const getLinuxList = parameter => {
     method: 'get'
   })
 }
-
+export const getWindowsList = parameter => {
+  return axios.request({
+    url: `/assets/api/windows?${parameter}`,
+    method: 'get'
+  })
+}
 export const createLinux = data => {
   return axios.request({
     url: '/assets/api/linux',

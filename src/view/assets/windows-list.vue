@@ -25,12 +25,12 @@
         <br>
         <Page :total="count"
               :page_size='page_size'
-              @on-change="get_mysql_parameter"
+              @on-change="get_linux_parameter"
               show-elevator
               show-total />
       </Row>
       <Row>
-        <Drawer title="Linux-2配置"
+        <Drawer title="Linux-3配置"
                 v-model="create"
                 width="720"
                 :mask-closable="this.close"
@@ -38,7 +38,7 @@
           <Form ref="formData"
                 :model="formData"
                 :rules="ruleValidate">
-            <Alert show-icon>数据库配置</Alert>
+            <Alert show-icon>Linux-3配置</Alert>
             <Row :gutter="32">
               <Col span="6">
               <FormItem label="标签"
@@ -57,181 +57,171 @@
               </FormItem>
               </Col>
               <Col span="4">
-              <FormItem label="端口号"
+              <FormItem label="主机名"
                         label-position="top"
                         prop="port">
-                <InputNumber v-model="formData.port"
-                       placeholder="数据库实例端口号">
+                <Input v-model="formData.hostname"
+                       placeholder="主机名">
+                </Input>
+              </FormItem>
+              </Col>
+            </Row>
+            <Row :gutter="32">
+              <Col span="8">
+              <FormItem label="Linux版本"
+                        label-position="top"
+                        prop="db_version">
+                <Select v-model="formData.linux_version"
+                        placeholder="">
+                  <Option value="Linux6">Linux6</Option>
+                  <Option value="Linux7">Linux7</Option>
+                </Select>
+              </FormItem>
+              </Col>
+              <Col span="8">
+              <FormItem label="内核版本"
+                        label-position="top"
+                        prop="db_version">
+                <Input v-model="formData.linux_kernel"
+                       placeholder="内核">
+                </Input>
+              </FormItem>
+              </Col>
+            </Row>
+            <Alert show-icon>操作系统配置</Alert>
+            <Row :gutter="32">
+              <Col span="6">
+              <FormItem label="操作系统用户名"
+                        label-position="top"
+                        prop="user">
+                <Input v-model="formData.user"
+                             placeholder="操作系统用户名">
+                </Input>
+              </FormItem>
+              </Col>
+              <Col span="6">
+              <FormItem label="操作系统用户密码"
+                        label-position="top"
+                        prop="password">
+                <Input type="password" v-model="formData.password"
+                             placeholder="操作系统用户密码">
+                </Input>
+              </FormItem>
+              </Col>
+              <Col span="6">
+              <FormItem label="操作系统ssh端口号"
+                        label-position="top"
+                        prop="sshport">
+                <InputNumber v-model="formData.sshport"
+                             placeholder="操作系统ssh端口号">
                 </InputNumber>
               </FormItem>
               </Col>
+            </Row>
+            <Alert show-icon>机房信息</Alert>
+            <Row :gutter="32">
               <Col span="6">
-              <FormItem label="vip地址"
+              <FormItem label="序列号"
                         label-position="top"
-                        prop="vip">
-                <Input v-model="formData.vip"
-                       placeholder="vip地址" />
+                        prop="serialno">
+                <Input v-model="formData.serialno"
+                       placeholder="序列号">
+                </Input>
               </FormItem>
               </Col>
-              <Col span="6">
-              <FormItem label="Linux-3"
+              <Col span="4">
+              <FormItem label="状态"
                         label-position="top"
-                        prop="linux_tags">
-                <Select v-model="formData.linux_tags"
-                        placeholder="选择Linux-3">
-                 <Option v-for="item in linuxdata" :value="item.tags" :key="item.tags" :label="item.tags"></Option>
-                </Select>
-              </FormItem>
-              </Col>
-              <Col span="6">
-              <FormItem label="数据库版本"
-                        label-position="top"
-                        prop="db_version">
-                <Select v-model="formData.db_version"
+                        prop="status">
+                <Select v-model="formData.status"
                         placeholder="">
-                  <Option value="MySQL5.6">MySQL5.6</Option>
-                  <Option value="MySQL5.7">MySQL5.7</Option>
-                  <Option value="MySQL8.0">MySQL8.0</Option>
+                  <Option value="0">在线</Option>
+                  <Option value="1">备用</Option>
+                  <Option value="2">下线</Option>
+                  <Option value="3">待用</Option>
+                  <Option value="4">维修</Option>
+                  <Option value="5">重装</Option>
                 </Select>
               </FormItem>
               </Col>
               <Col span="6">
-              <FormItem label="数据库用户名"
+              <FormItem label="机柜"
                         label-position="top"
-                        prop="db_user">
-                <Input v-model="formData.db_user"
-                       placeholder="数据库用户名">
+                        prop="cabinet">
+                <Input v-model="formData.cabinet"
+                       placeholder="机柜">
                 </Input>
               </FormItem>
               </Col>
               <Col span="6">
-              <FormItem label="数据库密码"
+              <FormItem label="服务器厂家"
                         label-position="top"
-                        prop="db_password">
-                <Input type="password" v-model="formData.db_password"
-                       placeholder="数据库用户密码" />
-              </FormItem>
-              </Col>
-            </Row>
-            <Alert show-icon>数据库描述</Alert>
-            <Row :gutter="32">
-              <Col span="6">
-              <FormItem label="数据库角色"
-                        label-position="top"
-                        prop="db_role">
-                <Input v-model="formData.db_role"
-                       placeholder="master/slave" />
-              </FormItem>
-              </Col>
-              <Col span="16">
-              <FormItem label="启动方式"
-                        label-position="top"
-                        prop="start_method">
-                <Input v-model="formData.start_method"
-                       placeholder="启动方式" />
-              </FormItem>
-              </Col>
-              <Col span="8">
-              <FormItem label="应用目录"
-                        label-position="top"
-                        prop="appdir">
-                <Input v-model="formData.appdir"
-                       placeholder="应用目录" />
-              </FormItem>
-              </Col>
-              <Col span="8">
-              <FormItem label="数据目录"
-                        label-position="top"
-                        prop="datadir">
-                <Input v-model="formData.datadir"
-                       placeholder="数据目录" />
-              </FormItem>
-              </Col>
-               <Col span="8">
-              <FormItem label="配置文件"
-                        label-position="top"
-                        prop="profile">
-                <Input v-model="formData.profile"
-                       placeholder="配置文件" />
-              </FormItem>
-              </Col>
-              <Col span="6">
-              <FormItem label="备份方式"
-                        label-position="top"
-                        prop="backup_type">
-                <Input v-model="formData.backup_type"
-                       placeholder="备份方式">
+                        prop="factory">
+                <Input v-model="formData.factory"
+                       placeholder="服务器厂家">
                 </Input>
               </FormItem>
               </Col>
-              <Col span="6">
-              <FormItem label="数据库架构"
+              <Col span="8">
+              <FormItem label="采购日期"
                         label-position="top"
-                        prop="architecture">
-                <Input v-model="formData.architecture"
-                       placeholder="数据库架构" />
+                        prop="purchase_date">
+                <DatePicker v-model="formData.purchase_date" value="yyyymmdd" type="date" placeholder="选择日期" style="width: 200px"></DatePicker>
               </FormItem>
               </Col>
-              <Col span="4">
-              <FormItem label="只读"
+              <Col span="8">
+              <FormItem label="保修开始日期"
                         label-position="top"
-                        prop="readonly">
-                <Select v-model="formData.readonly"
-                        placeholder="">
-                  <Option value="0">ON</Option>
-                  <Option value="1">OFF</Option>
-                </Select>
+                        prop="beginprotection_date">
+                <DatePicker v-model="formData.beginprotection_date"  type="date" placeholder="选择日期" style="width: 200px"></DatePicker>
               </FormItem>
               </Col>
-              <Col span="4">
-              <FormItem label="GTID"
+              <Col span="8">
+              <FormItem label="过保日期"
                         label-position="top"
-                        prop="gtid">
-                <Select v-model="formData.gtid"
-                        placeholder="">
-                  <Option value="0">ON</Option>
-                  <Option value="1">OFF</Option>
-                </Select>
+                        prop="overprotection_date">
+                <DatePicker v-model="formData.overprotection_date" type="date" placeholder="选择日期" style="width: 200px"></DatePicker>
               </FormItem>
               </Col>
             </Row>
+            <Alert show-icon>服务器描述</Alert>
             <Row :gutter="32">
-                 <Col span="6">
+              <Col span="4">
               <FormItem label="业务系统"
                         label-position="top"
                         prop="bussiness_system">
                 <Input v-model="formData.bussiness_system"
-                       placeholder="归属业务系统，如账务">
+                       placeholder="归属系统">
                 </Input>
               </FormItem>
               </Col>
-            <Col span="6">
+              <Col span="4">
               <FormItem label="系统等级"
                         label-position="top"
-                        prop="system_level">
+                        prop="db_version">
                 <Select v-model="formData.system_level"
                         placeholder="">
-                  <Option value='0'>核心系统</Option>
-                  <Option value='0'>重要系统</Option>
-                  <Option value='0'>一般系统</Option>
+                  <Option value="0">核心系统</Option>
+                  <Option value="1">重要系统</Option>
+                  <Option value="2">一般系统</Option>
                 </Select>
               </FormItem>
               </Col>
-              <Col span="12">
-              <FormItem label="资源描述"
+              <Col span="8">
+              <FormItem label="服务器描述"
                         label-position="top"
                         prop="res_description">
                 <Input v-model="formData.res_description"
-                       placeholder="如账务库1号节点">
+                       placeholder="服务器描述">
                 </Input>
               </FormItem>
               </Col>
-              <Col span="12">
-              <FormItem label="主要数据库用户"
+              <Col span="8">
+              <FormItem label="主要部署软件"
                         label-position="top"
-                        prop="main_dbuser">
-                <Input v-model="formData.main_dbuser"
-                       placeholder="列举数据库中核心用户">
+                        prop="main_software">
+                <Input v-model="formData.main_software"
+                       placeholder="主要部署软件">
                 </Input>
               </FormItem>
               </Col>
@@ -242,9 +232,11 @@
             <Form class="step-form" :label-width="100">
               <FormItem label="选择告警配置">
                 <CheckboxGroup>
-                  <Checkbox v-model="formData.alarm_connect" true-value="1" false-value="0" label="数据库通断告警"></Checkbox>
-                  <Checkbox v-model="formData.alarm_connections" true-value="1" false-value="0" label="连接数告警"></Checkbox>
-                  <Checkbox v-model="formData.alarm_repl" true-value="1" false-value="0" label="复制延迟告警"></Checkbox>
+                  <Checkbox v-model="formData.alarm_connect" true-value="1" false-value="0" label="Linux主机通断告警"></Checkbox>
+                  <Checkbox v-model="formData.alarm_cpu" true-value="1" false-value="0" label="cpu使用率告警"></Checkbox>
+                  <Checkbox v-model="formData.alarm_mem" true-value="1" false-value="0" label="内存使用率告警"></Checkbox>
+                  <Checkbox v-model="formData.alarm_swap" true-value="1" false-value="0"  label="swap使用率告警"></Checkbox>
+                  <Checkbox v-model="formData.alarm_disk" true-value="1" false-value="0"  label="磁盘使用率告警"></Checkbox>
                   <Checkbox v-model="formData.alarm_alert_log" true-value="1" false-value="0"  label="后台日志告警"></Checkbox>
                 </CheckboxGroup>
               </FormItem>
@@ -261,17 +253,34 @@
         </Drawer>
 
       </Row>
+
+      <Modal width="80"
+        v-model="webssh"
+        title="Common Modal dialog box title"
+        @on-ok="ok_webssh"
+        @on-cancel="cancel_webssh">
+        <p>Content of dialog</p>
+        <p>Content of dialog</p>
+        <p>Content of dialog</p>
+              <p>Content of dialog</p>
+        <p>Content of dialog</p>
+        <p>Content of dialog</p>
+              <p>Content of dialog</p>
+        <p>Content of dialog</p>
+        <p>Content of dialog</p>
+    </Modal>
     </Card>
   </Row>
 </template>
 
 <script>
-import { getMysqlList, getLinuxList, createMysql, updateMysql, deleteMysql } from '@/api/assets'
+import { getWindowsList, createLinux, updateLinux, deleteLinux } from '@/api/assets'
 import { hasOneOf } from '@/libs/tools'
 import { Tag } from 'iview'
 export default {
   data () {
     return {
+      webssh: false,
       columns: [
         {
           title: '标签',
@@ -284,36 +293,36 @@ export default {
           width: 150
         },
         {
-          title: '端口号',
-          key: 'port',
+          title: '主机名',
+          key: 'hostname',
           width: 80
         },
         {
-          title: '数据库版本',
-          key: 'db_version',
+          title: 'linux版本',
+          key: 'linux_version',
           width: 100
         },
         {
-          title: '角色',
-          key: 'db_role',
-          width: 90
+          title: '连接用户名',
+          key: 'user',
+          width: 110
         },
         {
-          title: '只读',
-          key: 'readonly',
-          width: 120,
+          title: '状态',
+          key: 'system_level',
+          width: 90,
           render: (h, params) => {
-            const Map = {
-              0: { desc: 'ON' },
-              1: { desc: 'OFF' } }
-            const readonly = params.row.readonly
-            return h(Tag, Map[readonly]['desc'])
+            const levelMap = {
+              0: { color: 'green', desc: '在线' },
+              1: { color: 'gray', desc: '备用' },
+              2: { color: 'gray', desc: '下线' },
+              3: { color: 'gray', desc: '待用' },
+              4: { color: 'gray', desc: '维修' },
+              5: { color: 'gray', desc: '重装' }
+            }
+            const system_level = params.row.system_level
+            return h(Tag, { props: { color: levelMap[system_level]['color'] } }, levelMap[system_level]['desc'])
           }
-        },
-        {
-          title: '架构',
-          key: 'architecture',
-          width: 90
         },
         {
           title: '业务系统',
@@ -350,7 +359,9 @@ export default {
                   marginRight: '5px'
                 },
                 on: {
+
                   click: () => {
+                    this.show = true
                     this.view(params.index)
                   }
                 }
@@ -400,13 +411,12 @@ export default {
         }
       ],
       data: [],
-      linuxdata: [],
       count: 0,
       page_size: 10,
       host_search: '',
       create: false,
-      close: false,
       showfooter: true,
+      close: false,
       styles: {
         height: 'calc(100% - 55px)',
         overflow: 'auto',
@@ -417,28 +427,28 @@ export default {
       formData: {
         tags: '',
         host: '',
-        port: 3306,
-        db_version: 'MySQL5.7',
-        db_user: '',
-        db_password: '',
-        linux_tags: '',
-        vip: '',
-        db_role: '',
-        readonly: '1',
-        gtid: '1',
-        start_method: '',
-        datadir: '',
-        appdir: '',
-        profile: '',
-        backup_type: '',
-        architecture: '',
+        hostname: '',
+        linux_version: 'Linux6',
+        user: '',
+        password: '',
+        sshport: 22,
+        serialno: '',
+        status: '0',
+        cabinet: '',
+        factory: '',
+        purchase_date: '',
+        beginprotection_date: '',
+        overprotection_date: '',
         bussiness_system: '',
         system_level: '0',
         res_description: '',
-        main_dbuser: '',
+        main_software: '',
         alarm_connect: '',
-        alarm_connections: '',
-        alarm_repl: ''
+        alarm_cpu: '',
+        alarm_mem: '',
+        alarm_swap: '',
+        alarm_disk: '',
+        alarm_alert_log: ''
       },
       ruleValidate: {
         tags: [
@@ -447,64 +457,62 @@ export default {
         host: [
           { required: true, message: '此项目必填', trigger: 'blur' }
         ],
-        db_user: [
+        hostname: [
           { required: true, message: '此项目必填', trigger: 'blur' }
         ],
-        db_password: [
+        user: [
           { required: true, message: '此项目必填', trigger: 'blur' }
         ],
-        linux_tags: [
+        password: [
           { required: true, message: '此项目必填', trigger: 'blur' }
         ]
       }
     }
   },
   created () {
-    this.get_mysql_list()
+    this.get_linux_list()
   },
   computed: {
     access () {
       return this.$store.state.user.access
     },
     addAccessAll () {
-      return hasOneOf(['assets.add_mysqllist'], this.access)
+      return hasOneOf(['assets.add_linuxlist'], this.access)
     },
     updateAccessAll () {
-      return hasOneOf(['assets.change_mysqllist'], this.access)
+      return hasOneOf(['assets.change_linuxlist'], this.access)
     },
     deleteAccessAll () {
-      return hasOneOf(['assets.delete_mysqllist'], this.access)
+      return hasOneOf(['assets.delete_linuxlist'], this.access)
     }
   },
   methods: {
+    ok_webssh () {
+      this.$Message.info('确认操作')
+    },
+    cancel_webssh () {
+      this.$Message.info('取消操作')
+    },
     search () {
       console.log(this.host_search)
-      this.get_mysql_list(`host=${this.host_search}`)
+      this.get_linux_list(`host=${this.host_search}`)
     },
     clear_search () {
       this.host_search = ''
-      this.get_mysql_list()
+      this.get_linux_list()
     },
-    get_mysql_list (parameter) {
-      getMysqlList(parameter).then(res => {
+    get_linux_list (parameter) {
+      getWindowsList(parameter).then(res => {
         this.data = res.data.results
         this.count = res.data.count
         console.log(this.data)
       }).catch(err => {
-        this.$Message.error(`获取mysql资源信息错误 ${err}`)
+        this.$Message.error(`获取linux资源信息错误 ${err}`)
       })
     },
-    get_linux_list (parameter) {
-      getLinuxList(parameter).then(res => {
-        this.linuxdata = res.data.results
-        console.log(this.linuxdata)
-      }).catch(err => {
-        this.$Message.error(`获取Linux主机资源信息错误 ${err}`)
-      })
-    },
-    get_mysql_parameter (parameter) {
+    get_linux_parameter (parameter) {
       console.log(parameter)
-      this.get_mysql_list(`page=${parameter}`)
+      this.get_linux_list(`page=${parameter}`)
     },
     view (index) {
       this.update(index)
@@ -516,30 +524,30 @@ export default {
         console.log()
         if (valid) {
           if (!this.updateId) {
-            createMysql(this.formData).then(res => {
+            createLinux(this.formData).then(res => {
               console.log(res)
-              this.$Message.success('新增MySQL配置成功!')
-              this.get_mysql_list()
+              this.$Message.success('新增linux配置成功!')
+              this.get_linux_list()
               this.create = false
             }).catch(err => {
               console.log(err.response)
               this.$Message.error({
-                content: `新增MySQL配置错误 ${Object.entries(err.response.data)}`,
+                content: `新增linux配置错误 ${Object.entries(err.response.data)}`,
                 duration: 10,
                 closable: true
               })
             })
           } else {
             console.log(this.updateId)
-            updateMysql(this.updateId, this.formData).then(res => {
+            updateLinux(this.updateId, this.formData).then(res => {
               console.log(res)
-              this.$Message.success('更新MySQL配置成功!')
-              this.get_mysql_list()
+              this.$Message.success('更新linux配置成功!')
+              this.get_linux_list()
               this.create = false
             }).catch(err => {
               console.log(err.response)
               this.$Message.error({
-                content: `更新MySQL配置错误 ${Object.entries(err.response.data)}`,
+                content: `更新linux配置错误 ${Object.entries(err.response.data)}`,
                 duration: 10,
                 closable: true
               })
@@ -551,81 +559,79 @@ export default {
       })
     },
     add () {
-      this.get_linux_list()
       this.create = true
       this.showfooter = true
       this.close = false
       this.updateId = null
       this.formData.tags = ''
       this.formData.host = ''
-      this.formData.port = 3306
-      this.formData.db_version = 'MySQL5.7'
-      this.formData.db_user = ''
-      this.formData.db_password = ''
-      this.formData.linux_tags = ''
-      this.formData.vip = ''
-      this.formData.db_role = ''
-      this.formData.readonly = '1'
-      this.formData.gtid = '1'
-      this.formData.start_method = ''
-      this.formData.datadir = ''
-      this.formData.appdir = ''
-      this.formData.profile = ''
-      this.formData.backup_type = ''
-      this.formData.architecture = ''
+      this.formData.hostname = ''
+      this.formData.db_version = 'Linux6'
+      this.formData.linux_kernel = ''
+      this.formData.user = ''
+      this.formData.password = ''
+      this.formData.sshport = 22
+      this.formData.serialno = ''
+      this.formData.status = '0'
+      this.formData.cabinet = ''
+      this.formData.factory = ''
+      this.formData.purchase_date = ''
+      this.formData.beginprotection_date = ''
+      this.formData.overprotection_date = ''
       this.formData.bussiness_system = ''
       this.formData.system_level = '0'
       this.formData.res_description = ''
-      this.formData.main_dbuser = ''
+      this.formData.main_software = ''
       this.formData.alarm_connect = '1'
-      this.formData.alarm_connections = '1'
-      this.formData.alarm_repl = '1'
+      this.formData.alarm_cpu = '1'
+      this.formData.alarm_mem = '1'
+      this.formData.alarm_swap = '1'
+      this.formData.alarm_disk = '1'
       this.formData.alarm_alert_log = '1'
     },
     remove (index, id) {
       console.log(index, id)
-      deleteMysql(id).then(res => {
+      deleteLinux(id).then(res => {
         console.log(res)
-        this.$Message.success('删除MySQL配置成功!')
+        this.$Message.success('删除linux配置成功!')
         this.data.splice(index, 1)
       }).catch(err => {
         console.log(err.response)
         this.$Message.error({
-          content: `删除MySQL配置错误 ${Object.entries(err.response.data)}`,
+          content: `删除linux配置错误 ${Object.entries(err.response.data)}`,
           duration: 10,
           closable: true
         })
       })
     },
     update (index) {
-      this.get_linux_list()
       this.create = true
       this.showfooter = true
       this.close = false
       this.formData.tags = this.data[index].tags
       this.formData.host = this.data[index].host
-      this.formData.port = this.data[index].port
-      this.formData.db_version = this.data[index].db_version
-      this.formData.db_user = this.data[index].db_user
-      this.formData.db_password = this.data[index].db_password
-      this.formData.linux_tags = this.data[index].linux_tags
-      this.formData.vip = this.data[index].vip
-      this.formData.db_role = this.data[index].db_role
-      this.formData.readonly = String(this.data[index].readonly)
-      this.formData.gtid = String(this.data[index].gtid)
-      this.formData.start_method = this.data[index].start_method
-      this.formData.datadir = this.data[index].datadir
-      this.formData.appdir = this.data[index].appdir
-      this.formData.profile = this.data[index].profile
-      this.formData.backup_type = this.data[index].backup_type
-      this.formData.architecture = this.data[index].architecture
+      this.formData.hostname = this.data[index].hostname
+      this.formData.linux_version = this.data[index].linux_version
+      this.formData.linux_kernel = this.data[index].linux_kernel
+      this.formData.user = this.data[index].user
+      this.formData.password = this.data[index].password
+      this.formData.sshport = this.data[index].sshport
+      this.formData.serialno = this.data[index].serialno
+      this.formData.status = String(this.data[index].status)
+      this.formData.cabinet = this.data[index].cabinet
+      this.formData.factory = this.data[index].factory
+      this.formData.purchase_date = this.data[index].purchase_date
+      this.formData.beginprotection_date = this.data[index].beginprotection_date
+      this.formData.overprotection_date = this.data[index].overprotection_date
       this.formData.bussiness_system = this.data[index].bussiness_system
       this.formData.system_level = String(this.data[index].system_level)
       this.formData.res_description = this.data[index].res_description
-      this.formData.main_dbuser = this.data[index].main_dbuser
+      this.formData.main_software = this.data[index].main_software
       this.formData.alarm_connect = String(this.data[index].alarm_connect)
-      this.formData.alarm_connections = String(this.data[index].alarm_connections)
-      this.formData.alarm_repl = String(this.data[index].alarm_repl)
+      this.formData.alarm_cpu = String(this.data[index].alarm_cpu)
+      this.formData.alarm_mem = String(this.data[index].alarm_mem)
+      this.formData.alarm_swap = String(this.data[index].alarm_swap)
+      this.formData.alarm_disk = String(this.data[index].alarm_disk)
       this.formData.alarm_alert_log = String(this.data[index].alarm_alert_log)
       this.updateId = this.data[index].id
     }
